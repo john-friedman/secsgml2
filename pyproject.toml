@@ -11,7 +11,6 @@ requires-python = ">=3.11"
 build = "cp311-* cp312-* cp313-* cp314-* cp315-*"
 skip = "pp* *-musllinux_*"
 build-verbosity = 1
-prerelease-pythons = true
 
 [tool.cibuildwheel.linux]
 archs = ["x86_64", "aarch64"]

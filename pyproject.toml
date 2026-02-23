@@ -8,7 +8,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 
 [tool.cibuildwheel]
-build = "cp311-* cp312-* cp313-* cp314-* cp315-*"
+build = "cp311-* cp312-* cp313-* cp314-*"
 skip = "pp* *-musllinux_*"
 build-verbosity = 1
 

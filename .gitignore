@@ -1,0 +1,29 @@
+# Output / build artifacts
+samples_output/
+dist/
+wheelhouse/
+build/
+*.egg-info/
+
+# Compiled extension modules
+*.so
+*.pyd
+*.dll
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

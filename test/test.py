@@ -3,6 +3,7 @@ import secsgml
 from time import time
 import json
 import os
+from secsgml2.utils import calculate_documents_locations_in_tar
 
 with open('samples/10k.txt','rb') as f:
     content = f.read()

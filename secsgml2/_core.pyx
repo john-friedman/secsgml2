@@ -199,6 +199,10 @@ def parse_sgml_content_into_memory(bytes data, filter_document_types=None):
             indices = [i for i, m in enumerate(doc_metas) if m["type"] in filter_document_types]
             metadata["documents"] = [doc_metas[i] for i in indices]
             documents = [documents[i] for i in indices]
+        
+        for file_num, content in enumerate(documents):
+            metadata["documents"][file_num]["secsgml_size_bytes"] = len(content)
+
         return metadata, documents
     finally:
         free_sgml_parse_result(&r)

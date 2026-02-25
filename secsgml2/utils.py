@@ -4,35 +4,10 @@ def calculate_documents_locations_in_tar(metadata):
     # Step 1: Add placeholder byte positions to get accurate size (10-digit padded)
     placeholder_metadata = copy.deepcopy(metadata)
 
-    # Check for bytes
-    is_bytes = any(term in placeholder_metadata for term in [b'documents', b'DOCUMENTS'])
-
-    if is_bytes:
-        # Check if using lowercase or uppercase keys
-        isLower = b'documents' in placeholder_metadata
-        if isLower:
-            doc_key = b'documents'
-            size_key = b'secsgml_size_bytes'
-            start_key = b'secsgml_start_byte'
-            end_key = b'secsgml_end_byte'
-        else:
-            doc_key = b'DOCUMENTS'
-            size_key = b'SECSGML_SIZE_BYTES'
-            start_key = b'SECSGML_START_BYTE'
-            end_key = b'SECSGML_END_BYTE'
-    else:
-        # Check if using lowercase or uppercase keys
-        isLower = 'documents' in placeholder_metadata
-        if isLower:
-            doc_key = 'documents'
-            size_key = 'secsgml_size_bytes'
-            start_key = 'secsgml_start_byte'
-            end_key = 'secsgml_end_byte'
-        else:
-            doc_key = 'DOCUMENTS'
-            size_key = 'SECSGML_SIZE_BYTES'
-            start_key = 'SECSGML_START_BYTE'
-            end_key = 'SECSGML_END_BYTE'
+    doc_key = 'documents'
+    size_key = 'secsgml_size_bytes'
+    start_key = 'secsgml_start_byte'
+    end_key = 'secsgml_end_byte'
 
     document_length = len(metadata[doc_key])
     

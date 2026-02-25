@@ -1,0 +1,3 @@
+[submodule "c/secsgmlc"]
+	path = c/secsgmlc
+	url = https://github.com/john-friedman/secsgmlc

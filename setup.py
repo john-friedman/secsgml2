@@ -29,7 +29,16 @@ ext_modules = [
         ],
         include_dirs=["c/secsgmlc/src"],
         extra_compile_args=get_compile_args(),
-    )
+    ),
+    Extension(
+        "secsgml2.uu",
+        sources=[
+            "secsgml2/uu.pyx",
+            "c/secsgmlc/src/uudecode.c",
+        ],
+        include_dirs=["c/secsgmlc/src"],
+        extra_compile_args=get_compile_args(),
+    ),
 ]
 
 

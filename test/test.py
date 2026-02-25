@@ -8,7 +8,7 @@ with open('samples/10k.txt','rb') as f:
     content = f.read()
 
 s = time()
-metadata, documents = secsgml2.parse_sgml_content_into_memory(content)
+metadata, documents = secsgml2.parse_sgml_content_into_memory(content,filter_document_types=['10-K','GRAPHIC'])
 print(f"time = {time()-s}")
 
 

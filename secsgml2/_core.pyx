@@ -137,7 +137,7 @@ cdef object _build_object(submission_event *events, size_t start_idx, size_t end
     return result
 
 
-def parse_sgml_content_into_memory(bytes data):
+def parse_sgml_content_into_memory(bytes data, filter_document_types=None):
     cdef const char *cbuf
     cdef Py_ssize_t n
     cdef const uint8_t *buf
@@ -193,6 +193,12 @@ def parse_sgml_content_into_memory(bytes data):
             documents.append(content_bytes)
 
         metadata["documents"] = documents_meta
+
+        if filter_document_types:
+            doc_metas = metadata["documents"]
+            indices = [i for i, m in enumerate(doc_metas) if m["type"] in filter_document_types]
+            metadata["documents"] = [doc_metas[i] for i in indices]
+            documents = [documents[i] for i in indices]
         return metadata, documents
     finally:
         free_sgml_parse_result(&r)

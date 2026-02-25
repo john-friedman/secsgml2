@@ -17,19 +17,21 @@ def get_compile_args():
         # in your C code handle SIMD based on what the compiler detects.
         return args
 
+
 ext_modules = [
     Extension(
         "secsgml2._core",
         sources=[
             "secsgml2/_core.pyx",
-            "c/src/secsgml.c",
-            "c/src/standardize_submission_metadata.c",
-            "c/src/uudecode.c",
+            "c/secsgmlc/src/secsgml.c",
+            "c/secsgmlc/src/standardize_submission_metadata.c",
+            "c/secsgmlc/src/uudecode.c",
         ],
-        include_dirs=["c/src"],
+        include_dirs=["c/secsgmlc/src"],
         extra_compile_args=get_compile_args(),
     )
 ]
+
 
 setup(
     packages=["secsgml2"],

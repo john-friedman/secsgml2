@@ -17,7 +17,7 @@ cdef extern from "stddef.h":
     ctypedef size_t size_t
 
 cdef extern from "uudecode.h":
-    size_t uudecode(const uint8_t *inp, size_t in_len, uint8_t *out)
+    size_t uudecode(const uint8_t *inp, size_t in_len, uint8_t *out, size_t out_cap)
 
 
 cdef bytes _decode_uu_body(bytes data):
@@ -42,7 +42,7 @@ cdef bytes _decode_uu_body(bytes data):
         raise MemoryError("Unable to allocate output buffer")
 
     out_buf = PyBytes_AsString(out)
-    out_len = uudecode(buf, length, <uint8_t *>out_buf)
+    out_len = uudecode(buf, length, <uint8_t *>out_buf, <size_t>n)
 
     out_obj = <PyObject *>out
     if _PyBytes_Resize(&out_obj, <Py_ssize_t>out_len) < 0:

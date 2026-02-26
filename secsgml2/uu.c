@@ -2677,7 +2677,7 @@ static PyObject *__pyx_f_8secsgml2_2uu__decode_uu_body(PyObject *__pyx_v_data) {
  *         raise MemoryError("Unable to allocate output buffer")
  * 
  *     out_buf = PyBytes_AsString(out)             # <<<<<<<<<<<<<<
- *     out_len = uudecode(buf, length, <uint8_t *>out_buf)
+ *     out_len = uudecode(buf, length, <uint8_t *>out_buf, <size_t>n)
  * 
 */
   __pyx_t_6 = PyBytes_AsString(__pyx_v_out); if (unlikely(__pyx_t_6 == ((void *)NULL))) __PYX_ERR(0, 44, __pyx_L1_error)
@@ -2686,14 +2686,14 @@ static PyObject *__pyx_f_8secsgml2_2uu__decode_uu_body(PyObject *__pyx_v_data) {
   /* "secsgml2/uu.pyx":45
  * 
  *     out_buf = PyBytes_AsString(out)
- *     out_len = uudecode(buf, length, <uint8_t *>out_buf)             # <<<<<<<<<<<<<<
+ *     out_len = uudecode(buf, length, <uint8_t *>out_buf, <size_t>n)             # <<<<<<<<<<<<<<
  * 
  *     out_obj = <PyObject *>out
 */
-  __pyx_v_out_len = uudecode(__pyx_v_buf, __pyx_v_length, ((uint8_t *)__pyx_v_out_buf));
+  __pyx_v_out_len = uudecode(__pyx_v_buf, __pyx_v_length, ((uint8_t *)__pyx_v_out_buf), ((size_t)__pyx_v_n));
 
   /* "secsgml2/uu.pyx":47
- *     out_len = uudecode(buf, length, <uint8_t *>out_buf)
+ *     out_len = uudecode(buf, length, <uint8_t *>out_buf, <size_t>n)
  * 
  *     out_obj = <PyObject *>out             # <<<<<<<<<<<<<<
  *     if _PyBytes_Resize(&out_obj, <Py_ssize_t>out_len) < 0:

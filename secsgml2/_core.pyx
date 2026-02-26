@@ -32,6 +32,7 @@ cdef extern from "secsgml.h":
         document *docs
         size_t doc_count
         size_t doc_cap
+        sgml_status status
 
     ctypedef struct sgml_parse_stats:
         size_t doc_count
@@ -52,6 +53,12 @@ cdef extern from "secsgml.h":
         submission_event *events
         size_t count
         size_t cap
+        sgml_status status
+
+    cdef enum sgml_status:
+        SGML_STATUS_OK = 0
+        SGML_STATUS_OOM = 1
+        SGML_STATUS_TRUNCATED = 2
 
     sgml_parse_result parse_sgml(const uint8_t *buf, size_t len, sgml_parse_stats *stats)
     void free_sgml_parse_result(sgml_parse_result *r)
@@ -66,6 +73,7 @@ cdef extern from "standardize_submission_metadata.h":
         uint8_t *arena
         size_t arena_len
         size_t arena_cap
+        sgml_status status
 
     standardized_submission_metadata standardize_submission_metadata(const submission_metadata *m)
     void free_standardized_submission_metadata(standardized_submission_metadata *m)
@@ -164,6 +172,21 @@ def parse_sgml_content_into_memory(bytes data, filter_document_types=None):
     r = parse_sgml(buf, length, &stats)
 
     try:
+        if sub.status != SGML_STATUS_OK:
+            if sub.status == SGML_STATUS_OOM:
+                raise MemoryError("parse_submission_metadata: out of memory")
+            raise RuntimeError("parse_submission_metadata: truncated or failed")
+
+        if std.status != SGML_STATUS_OK:
+            if std.status == SGML_STATUS_OOM:
+                raise MemoryError("standardize_submission_metadata: out of memory")
+            raise RuntimeError("standardize_submission_metadata: truncated or failed")
+
+        if r.status != SGML_STATUS_OK:
+            if r.status == SGML_STATUS_OOM:
+                raise MemoryError("parse_sgml: out of memory")
+            raise RuntimeError("parse_sgml: truncated or failed")
+
         metadata = _build_object(std.events, 0, std.count, -1)
 
         documents_meta = []
